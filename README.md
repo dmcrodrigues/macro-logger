@@ -59,3 +59,13 @@ LOG_DEBUG("Waiting %d seconds...", n_seconds);
 LOG_INFO("Searching for something.");
 
 ```
+
+### Sample output
+
+```
+
+2012-08-29 00:07:52 |    DEBUG |        sample.c:29 |            main | Maybe i can touch this button...
+2012-08-29 00:07:52 |     INFO |        sample.c:31 |            main | Pressure is dropping...
+2012-08-29 00:07:52 |    ERROR |        sample.c:33 |            main | Houston we have a problem!
+
+```
