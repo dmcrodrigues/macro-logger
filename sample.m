@@ -30,7 +30,8 @@ int main(int argc, const char * argv[]) {
     
     LOG_INFO("Pressure is dropping...");
     
-    LOG_ERROR("Houston we have a problem!");
+    NSString *baseStation = @"Houston";
+    LOG_ERROR(@"%@ we have a problem!", baseStation);
     
     return 0;
 }
