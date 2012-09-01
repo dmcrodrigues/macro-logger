@@ -23,13 +23,16 @@
 #ifndef __MACROLOGGER_H__
 #define __MACROLOGGER_H__
 
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#else
 #include <time.h>
 #include <string.h>
+#endif
 
-// === auxiliar function
+// === auxiliar functions
 static inline char *timenow();
 
-// === auxiliar function
 #define _FILE strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__
 
 #define NO_LOG          0x00
@@ -41,21 +44,26 @@ static inline char *timenow();
 #define LOG_LEVEL   DEBUG_LEVEL
 #endif
 
-#define LOG_TIME    
-
 #ifdef __OBJC__
-#define PRINTFUNCTION(fmt, ...)     NSLog(@fmt, __VA_ARGS__)
+
+#if __has_feature(objc_arc)
+#define AUTORELEASEPOOL_BEGIN   @autoreleasepool {
+#define AUTORELEASEPOOL_END     }
+#define RELEASE(OBJ)            OBJ = nil
 #else
-#define PRINTFUNCTION(fmt, ...)     fprintf(stderr, fmt, __VA_ARGS__)
+#define AUTORELEASEPOOL_BEGIN   NSAutoreleasePool *_pool = [[NSAutoreleasePool alloc] init];
+#define AUTORELEASEPOOL_END     [_pool release];
+#define RELEASE(OBJ)            [OBJ release];
 #endif
 
-#if defined(__OBJC__) || !defined(LOG_TIME)
-#define LOG_FMT             "| %8s | %15s:%d | %15s | "
-#define LOG_ARGS(LOG_TAG)   LOG_TAG, _FILE, __LINE__, __FUNCTION__
+#define PRINTFUNCTION(format, ...)      objc_print(@format, __VA_ARGS__)
 #else
-#define LOG_FMT             "%s | %8s | %15s:%d | %15s | "
-#define LOG_ARGS(LOG_TAG)   timenow(), LOG_TAG, _FILE, __LINE__, __FUNCTION__
+#define PRINTFUNCTION(format, ...)      fprintf(stderr, format, __VA_ARGS__)
+
 #endif
+
+#define LOG_FMT             "%s | %-7s | %-15s | %s:%d | "
+#define LOG_ARGS(LOG_TAG)   timenow(), LOG_TAG, _FILE, __FUNCTION__, __LINE__
 
 #define NEWLINE     "\n"
 
@@ -93,5 +101,20 @@ static inline char *timenow() {
     
     return buffer;
 }
+
+#ifdef __OBJC__
+
+static inline void objc_print(NSString *format, ...) {
+    AUTORELEASEPOOL_BEGIN
+    va_list args;
+    va_start(args, format);
+    NSString *logStr = [[NSString alloc] initWithFormat:format arguments:args];
+    fprintf(stderr, "%s", [logStr UTF8String]);
+    RELEASE(logStr);
+    va_end(args);
+    AUTORELEASEPOOL_END
+}
+
+#endif
 
 #endif
