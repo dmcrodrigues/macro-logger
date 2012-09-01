@@ -28,15 +28,15 @@ If not specified is used the debug level.
   * The log functions can handle arguments like printf or just a message. The message can be a C/C++ string or an Objective-C string.
 
 	```C
-		int x = 5;
-		LOG_INFO("x * x = %d", x * x);
-		LOG_DEBUG(@"Objective-C also supported");
+	int x = 5;
+	LOG_INFO("x * x = %d", x * x);
+	LOG_DEBUG(@"Objective-C also supported");
 	```
   * The log functions can receive Objective-C objects as arguments.
 
 	```Objective-C
-		NSString *baseStation = @"Houston";
-		LOG_ERROR(@"%@ we have a problem!", baseStation);
+	NSString *baseStation = @"Houston";
+	LOG_ERROR(@"%@ we have a problem!", baseStation);
 	```
 
 ## Basic usage
