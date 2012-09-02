@@ -6,7 +6,7 @@ A simplified logging system using macros for C/C++ and Objective-C.
 
 #### Levels
 
-There are three different logging levels:
+There are three different logging levels. It's possible also disable all logs.
 
   - [0] NO_LOGS
   - [1] ERROR
