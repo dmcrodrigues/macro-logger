@@ -63,6 +63,8 @@ LOG_INFO(message, arguments);
 
 LOG_ERROR(message, arguments);
 
+LOG_IF_ERROR(condition, message, arguments);
+
 ```
 
 ### Examples
@@ -85,7 +87,8 @@ LOG_ERROR(@"%@ we have a problem!", baseStation);
 ### Sample output
 
 ```
-2012-09-01 15:56:52 | DEBUG   | sample.c        | main:29 | Maybe i can touch this button...
-2012-09-01 15:56:52 | INFO    | sample.c        | main:31 | Pressure is dropping...
-2012-09-01 15:56:52 | ERROR   | sample.c        | main:33 | Houston we have a problem!
+2012-09-04 01:05:16 | DEBUG   | sample.m        | main:29 | Maybe i can touch this button...
+2012-09-04 01:05:16 | INFO    | sample.m        | main:31 | Pressure is dropping...
+2012-09-04 01:05:16 | ERROR   | sample.m        | main:34 | Houston we have a problem!
+2012-09-04 01:05:16 | ERROR   | sample.m        | main:37 | i'm going down... if only i had used macro-logger...
 ```

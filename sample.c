@@ -32,5 +32,8 @@ int main(int argc, const char * argv[]) {
     
     LOG_ERROR("Houston we have a problem!");
     
+    int going_down = 1;
+    LOG_IF_ERROR(going_down, "i'm going down... if only i had used macro-logger...");
+    
     return 0;
 }

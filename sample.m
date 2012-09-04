@@ -33,5 +33,8 @@ int main(int argc, const char * argv[]) {
     NSString *baseStation = @"Houston";
     LOG_ERROR(@"%@ we have a problem!", baseStation);
     
+    int going_down = 1;
+    LOG_IF_ERROR(going_down, "i'm going down... if only i had used macro-logger...");
+    
     return 0;
 }

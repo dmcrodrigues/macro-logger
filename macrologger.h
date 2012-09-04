@@ -89,6 +89,12 @@ static inline char *timenow();
 #define LOG_ERROR(message, args...)
 #endif
 
+#if LOG_LEVEL >= NO_LOGS
+#define LOG_IF_ERROR(condition, message, args...) if (condition) PRINTFUNCTION(LOG_FMT message NEWLINE, LOG_ARGS(ERROR_TAG), ## args)
+#else
+#define LOG_IF_ERROR(condition, message, args...)
+#endif
+
 static inline char *timenow() {
     static char buffer[64];
     time_t rawtime;
